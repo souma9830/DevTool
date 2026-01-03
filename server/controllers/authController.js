@@ -28,7 +28,7 @@ try {
         from: process.env.SENDER_EMAIL,
         to: email,
         subject: "Welcome to Intryo",
-        text: `Welcome to Intryo website. Your account has been created with email id: ${email}`
+        text: `Welcome ${name} to our Intryo website. Your account has been created with email id: ${email}`
     }
     await transporter.sendMail(mailoption);
      return res.json({success:true});
