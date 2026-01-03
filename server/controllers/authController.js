@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"; 
 import usermodel from "../models/usermodel.js";
+import transporter from "../config/nodemailer.js";
 export const register=async(req,res)=>{
     const {name,email,password}=req.body;
     if(!name|| !email || !password){
@@ -21,7 +22,15 @@ try {
         secure:process.env.NODE_ENV==='production',
         sameSite:process.env.NODE_ENV=== 'production'? 'none' : 'strict',
         maxAge: 7*24*60*60*1000,
-    })
+    });
+    
+    const mailoption={
+        from: process.env.SENDER_EMAIL,
+        to: email,
+        subject: "Welcome to Intryo",
+        text: `Welcome to Intryo website. Your account has been created with email id: ${email}`
+    }
+    await transporter.sendMail(mailoption);
      return res.json({success:true});
 } catch (error) {
     res.json({success:false,message:error.message})
