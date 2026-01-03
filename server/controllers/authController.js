@@ -4,10 +4,9 @@ import usermodel from "../models/usermodel.js";
 export const register=async(req,res)=>{
     const {name,email,password}=req.body;
     if(!name|| !email || !password){
-        return res.json({success:false,message:"Missing details "})
+        return res.status(400).json({success:false,message:"Missing details "})
     }
-
-
+        
 try {
     const existingUser=await usermodel.findOne({email});
     if(existingUser){
@@ -67,6 +66,6 @@ export const logout=async(req,res)=>{
         })
         return res.json({success:true,message:"Logout"});
     } catch (error) {
-        return res.json({success:true,messgae:error.message})
+        return res.json({success:false,messgae:error.message})
     }
 }
