@@ -6,7 +6,7 @@ export const register=async(req,res)=>{
     if(!name|| !email || !password){
         return res.json({success:false,message:"Missing details "})
     }
-}
+
 
 try {
     const existingUser=await usermodel.findOne({email});
@@ -26,6 +26,7 @@ try {
      return res.json({success:true});
 } catch (error) {
     res.json({success:false,message:error.message})
+}
 }
 
 
